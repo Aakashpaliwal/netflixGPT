@@ -2,9 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Home from '@/Home/Home'
-import Button from '@/components/ui/button'
 import Authentication from '@/Screens/Authentication/Authentication'
+import { Toaster } from 'sonner'
+import { Route, Routes } from 'react-router-dom'
+import Home from '@/Screens/Home/Home'
 
 
 function App() {
@@ -12,11 +13,12 @@ function App() {
 
   return (
     <>
-       {/* <div className="p-4">
-      <Button>Click Me</Button>
-      <Button variant="default" className="ml-2 hover:cursor-pointer">Outline</Button>
-    </div> */}
-    <Authentication />
+    <Toaster richColors position='top-right' />
+    <Routes>
+      <Route path='/' element={<Authentication />} />
+      <Route path='/home' element={<Home />} />
+    </Routes>
+    {/* <Authentication /> */}
     </>
   )
 }

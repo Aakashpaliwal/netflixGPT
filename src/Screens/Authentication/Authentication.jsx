@@ -12,8 +12,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Button from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -37,9 +43,32 @@ const Authentication = () => {
     resolver: zodResolver(isSignUp ? signupSchema : loginSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Form Data:", data);
     // Add login/signup logic here
+    try {
+      if (isSignUp) {
+        const userCred = await createUserWithEmailAndPassword(
+          auth,
+          data?.email,
+          data?.password
+        );
+        console.log(userCred);
+        toast.success('User Registered Successfully.')
+      } else {
+        console.log("else");
+        const userCred = await signInWithEmailAndPassword(
+          auth,
+          data?.email,
+          data?.password
+        );
+        console.log(userCred);
+        toast.success('User LoggedIn Successfully.')
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.code)
+    }
   };
 
   console.log(isSignUp);
