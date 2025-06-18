@@ -8,50 +8,43 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useQuery } from "@tanstack/react-query";
-import { getTrendMovie } from "@/API/TmdbApi";
+import { getTrendMovie, getTrendShows } from "@/API/TmdbApi";
 import Trending from "@/Screens/Trending/Trending";
+import TvShows from "@/Screens/Trending/TvShows";
+import Header from "@/Screens/Header/Header";
 
 const Home = () => {
+  console.log("homew");
   const { data, isPending, error, isError } = useQuery({
     queryKey: ["trendMovies"],
     queryFn: getTrendMovie,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
-  console.log(data);
-  console.log(error);
-  console.log(isPending);
-  console.log(isError);
+  const {
+    data: trendingShow,
+    error: tvShowError,
+    isPending: tvShowPending,
+  } = useQuery({
+    queryKey: ["trendingShows"],
+    queryFn: getTrendShows,
+    refetchOnWindowFocus: false,
+  });
 
   return (
-    // <div className="w-full overflow-hidden relative p-6">
-    //   <Carousel
-    //     opts={{
-    //       align: "start",
-    //     }}
-    //     className="w-full px-4"
-    //   >
-    //     <CarouselContent className="flex gap-4">
-    //       {Array.from({ length: 50 }).map((_, index) => (
-    //         <CarouselItem
-    //           key={index}
-    //           className="basis-[50%] sm:basis-[20%] md:basis-1/6 lg:basis-1/6"
-    //         >
-    //           <div className="p-1">
-    //             <Card className='py-0'>
-    //               <CardContent className="flex aspect-square items-center justify-center p-4">
-    //                 <span className="text-2xl font-semibold">{index + 1}</span>
-    //               </CardContent>
-    //             </Card>
-    //           </div>
-    //         </CarouselItem>
-    //       ))}
-    //     </CarouselContent>
-    //       <CarouselPrevious className='left-0' />
-    //       <CarouselNext className='right-0' />
-    //   </Carousel>
-    // </div>
-    <Trending data={data} loading={isPending} error={error} />
+    <>
+      <Header />
+      <div className="min-h-screen">
+        <div className="pt-20">
+          <Trending data={data} loading={isPending} error={error} />
+          <TvShows
+            data={trendingShow}
+            loading={tvShowPending}
+            error={tvShowError}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

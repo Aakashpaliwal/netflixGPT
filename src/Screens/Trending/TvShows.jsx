@@ -1,10 +1,10 @@
 import React from "react";
 import MovieCarousel from "@/components/MovieCarousel";
 
-const Trending = ({ data, loading, error }) => {
+const TvShows = ({ data, loading, error }) => {
   return (
     <MovieCarousel
-      title="Trending Movies"
+      title="Trending TV Shows"
       data={data}
       loading={loading}
       error={error}
@@ -12,4 +12,4 @@ const Trending = ({ data, loading, error }) => {
   );
 };
 
-export default Trending;
+export default TvShows;

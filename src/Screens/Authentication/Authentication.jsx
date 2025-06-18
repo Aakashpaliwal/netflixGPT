@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardAction,
@@ -14,6 +14,7 @@ import Button from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "@/firebase";
@@ -24,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser, registerUser } from "@/API/AuthApi";
+import useUserStore from "@/store/userStore";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -38,6 +40,7 @@ const signupSchema = z.object({
 
 const Authentication = () => {
   const navigate = useNavigate();
+  const setUserName = useUserStore((state) => state.setUserName)
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -47,6 +50,17 @@ const Authentication = () => {
   } = useForm({
     resolver: zodResolver(isSignUp ? signupSchema : loginSchema),
   });
+
+  // Check if user is already authenticated and redirect to home
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/home");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const regsiterMutation = useMutation({
     mutationFn: registerUser,
@@ -65,6 +79,7 @@ const Authentication = () => {
     mutationFn: loginUser,
     onSuccess: (res) => {
       toast.success("User LoggedIn Successfully.");
+      setUserName('Akash')
       navigate("/home");
     },
     onError: (err) => {
@@ -159,8 +174,14 @@ const Authentication = () => {
                 )}
               </div>
             </div>
-            <Button type="submit" disabled={regsiterMutation?.isPending || loginMutation?.isPending} className="w-full mt-7">
-              {(regsiterMutation?.isPending || loginMutation?.isPending) && <Loader2Icon className="animate-spin" />}
+            <Button
+              type="submit"
+              disabled={regsiterMutation?.isPending || loginMutation?.isPending}
+              className="w-full mt-7"
+            >
+              {(regsiterMutation?.isPending || loginMutation?.isPending) && (
+                <Loader2Icon className="animate-spin" />
+              )}
               {isSignUp ? "Sign Up" : "Login"}
             </Button>
           </form>
