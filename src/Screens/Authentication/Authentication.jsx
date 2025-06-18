@@ -21,6 +21,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { Loader2Icon } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser, registerUser } from "@/API/AuthApi";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -34,7 +37,7 @@ const signupSchema = z.object({
 });
 
 const Authentication = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -45,32 +48,37 @@ const Authentication = () => {
     resolver: zodResolver(isSignUp ? signupSchema : loginSchema),
   });
 
+  const regsiterMutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (res) => {
+      console.log(res);
+      toast.success("User Registered Successfully.");
+      setIsSignup(false);
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error(err.code);
+    },
+  });
+
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (res) => {
+      toast.success("User LoggedIn Successfully.");
+      navigate("/home");
+    },
+    onError: (err) => {
+      toast.error(err.code);
+    },
+  });
+
   const onSubmit = async (data) => {
     console.log("Form Data:", data);
     // Add login/signup logic here
-    try {
-      if (isSignUp) {
-        const userCred = await createUserWithEmailAndPassword(
-          auth,
-          data?.email,
-          data?.password
-        );
-        console.log(userCred);
-        toast.success('User Registered Successfully.')
-      } else {
-        console.log("else");
-        const userCred = await signInWithEmailAndPassword(
-          auth,
-          data?.email,
-          data?.password
-        );
-        console.log(userCred);
-        toast.success('User LoggedIn Successfully.')
-        navigate('/home')
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.code)
+    if (isSignUp) {
+      regsiterMutation.mutate(data);
+    } else {
+      loginMutation.mutate(data);
     }
   };
 
@@ -151,7 +159,8 @@ const Authentication = () => {
                 )}
               </div>
             </div>
-            <Button type="submit" className="w-full mt-7">
+            <Button type="submit" disabled={regsiterMutation?.isPending || loginMutation?.isPending} className="w-full mt-7">
+              {(regsiterMutation?.isPending || loginMutation?.isPending) && <Loader2Icon className="animate-spin" />}
               {isSignUp ? "Sign Up" : "Login"}
             </Button>
           </form>
