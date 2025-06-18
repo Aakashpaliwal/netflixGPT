@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -11,28 +10,35 @@ import {
 
 const Home = () => {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden relative p-6">
       <Carousel
         opts={{
           align: "start",
         }}
-        className="w-full max-w-6xl p-5"
+        className="w-full px-4"
       >
-        <CarouselContent>
+        <CarouselContent className="flex gap-4">
           {Array.from({ length: 50 }).map((_, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem
+              key={index}
+              className="basis-[50%] sm:basis-[20%] md:basis-1/6 lg:basis-1/6"
+            >
               <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-3xl font-semibold">{index + 1}</span>
+                <Card className='py-0'>
+                  <CardContent className="flex aspect-square items-center justify-center p-4">
+                    <span className="text-2xl font-semibold">{index + 1}</span>
                   </CardContent>
                 </Card>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+
+        {/* Show arrows only on large screens (optional) */}
+        {/* <div className="hidden md:flex"> */}
+          <CarouselPrevious className='left-0' />
+          <CarouselNext className='right-0' />
+        {/* </div> */}
       </Carousel>
     </div>
   );

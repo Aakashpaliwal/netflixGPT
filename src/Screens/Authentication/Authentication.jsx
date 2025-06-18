@@ -20,6 +20,7 @@ import { auth } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -33,6 +34,7 @@ const signupSchema = z.object({
 });
 
 const Authentication = () => {
+    const navigate = useNavigate()
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -64,6 +66,7 @@ const Authentication = () => {
         );
         console.log(userCred);
         toast.success('User LoggedIn Successfully.')
+        navigate('/home')
       }
     } catch (error) {
       console.log(error);
