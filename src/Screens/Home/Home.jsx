@@ -36,15 +36,21 @@ const Home = () => {
   return (
     <>
       <div className="min-h-screen">
-        {data && <VideoContainer id={data?.data?.results?.[5]?.id} title={data?.data?.results?.[5]?.original_title} description={data?.data?.results?.[5]?.overview} />}
-        <div className="pt-20">
-          <Trending data={data} loading={isPending} error={error} />
-          <TvShows
-            data={trendingShow}
-            loading={tvShowPending}
-            error={tvShowError}
+        {data && (
+          <VideoContainer
+            id={data?.data?.results?.[5]?.id}
+            title={data?.data?.results?.[5]?.original_title}
+            description={data?.data?.results?.[5]?.overview}
           />
-        </div>
+        )}
+        {/* <div className="lg:-mt-50 md:-mt-30 relative z-20 px-4 md:px-8"> */}
+          <Trending data={data} loading={isPending} error={error} />
+        {/* </div> */}
+        <TvShows
+          data={trendingShow}
+          loading={tvShowPending}
+          error={tvShowError}
+        />
       </div>
     </>
   );
