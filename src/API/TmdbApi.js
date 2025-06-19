@@ -39,8 +39,42 @@ export const getGenres = async () => {
     return result
 }
 
+export const getTvGenres = async () => {
+    const result = await axiosInstance.get('/genre/tv/list')
+    return result
+}
+
 export const getContentByGenre = async (type, genreId) => {
     const result = await axiosInstance.get(`/discover/${type}?with_genres=${genreId}`)
     return result
 }
 
+export const getTredningTvshows = async () => {
+    const result = await  axiosInstance.get('/trending/tv/day?language=en-US')
+    return result
+}
+
+export const getAiringTodayTvshows = async () => {
+    const result = await  axiosInstance.get('/tv/airing_today?language=en-US&page=1')
+    return result
+}
+
+export const getonTheAirTvshows = async () => {
+    const result = await  axiosInstance.get('/tv/on_the_air?language=en-US&page=1')
+    return result
+}
+
+export const getPopularTvshows = async () => {
+    const result = await  axiosInstance.get('/tv/popular?language=en-US&page=1')
+    return result
+}
+
+export const getTopRatedTvshows = async () => {
+    const result = await  axiosInstance.get('/tv/top_rated?language=en-US&page=1')
+    return result
+}
+
+export const getMovieVideo = async (id) => {
+    const result = await axiosInstance.get(`/movie/${id}/videos?language=en-US`)
+    return result
+}

@@ -12,6 +12,7 @@ import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Header from "@/Screens/Header/Header";
 import GenreContent from "@/Screens/GenreContent/GenreContent";
+import AllTvShows from "@/Screens/TvShows/AllTvShows";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,11 +39,11 @@ function App() {
   return (
     <>
       <Toaster richColors position="top-right" />
-      {user &&  <Header />}
+      {user && <Header />}
       <Routes>
-        <Route 
-          path="/" 
-          element={user ? <Navigate to="/home" replace /> : <Authentication />} 
+        <Route
+          path="/"
+          element={user ? <Navigate to="/home" replace /> : <Authentication />}
         />
         <Route
           path="/home"
@@ -60,7 +61,15 @@ function App() {
             </PrivateRoute>
           }
         />
-          <Route
+        <Route
+          path="/tvshows"
+          element={
+            <PrivateRoute>
+              <AllTvShows />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/genre/:type/:genreId"
           element={
             <PrivateRoute>

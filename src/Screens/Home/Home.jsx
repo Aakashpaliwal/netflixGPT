@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTrendMovie, getTrendShows } from "@/API/TmdbApi";
 import Trending from "@/Screens/Trending/Trending";
 import TvShows from "@/Screens/Trending/TvShows";
+import VideoContainer from "@/Screens/Home/VideoContainer";
 
 const Home = () => {
   console.log("homew");
@@ -30,9 +31,12 @@ const Home = () => {
     refetchOnWindowFocus: false,
   });
 
+  console.log(data);
+
   return (
     <>
       <div className="min-h-screen">
+        {data && <VideoContainer id={data?.data?.results?.[5]?.id} title={data?.data?.results?.[5]?.original_title} description={data?.data?.results?.[5]?.overview} />}
         <div className="pt-20">
           <Trending data={data} loading={isPending} error={error} />
           <TvShows
