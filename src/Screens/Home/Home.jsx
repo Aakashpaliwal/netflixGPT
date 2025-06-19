@@ -11,7 +11,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getTrendMovie, getTrendShows } from "@/API/TmdbApi";
 import Trending from "@/Screens/Trending/Trending";
 import TvShows from "@/Screens/Trending/TvShows";
-import Header from "@/Screens/Header/Header";
 
 const Home = () => {
   console.log("homew");
@@ -33,7 +32,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen">
         <div className="pt-20">
           <Trending data={data} loading={isPending} error={error} />

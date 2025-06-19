@@ -59,7 +59,7 @@ const MovieCarousel = ({
   }
 
   return (
-    <div className={`w-full overflow-hidden relative p-6 ${className}`}>
+    <div className={`w-full overflow-hidden relative pt-6 ${className}`}>
       <h4 className="scroll-m-20 text-xl font-semibold tracking-tight pl-10 mb-3">
         {title}
       </h4>

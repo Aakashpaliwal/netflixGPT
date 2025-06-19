@@ -33,3 +33,14 @@ export const getUpcomingMovies = async () => {
     const result = await axiosInstance.get('/movie/upcoming?language=en-US&page=1')
     return result
 }
+
+export const getGenres = async () => {
+    const result = await axiosInstance.get('/genre/movie/list')
+    return result
+}
+
+export const getContentByGenre = async (type, genreId) => {
+    const result = await axiosInstance.get(`/discover/${type}?with_genres=${genreId}`)
+    return result
+}
+

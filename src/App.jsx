@@ -10,6 +10,8 @@ import AllMovies from "@/Screens/Movies/AllMovies";
 import PrivateRoute from "@/PrivateRoute";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import Header from "@/Screens/Header/Header";
+import GenreContent from "@/Screens/GenreContent/GenreContent";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -36,6 +38,7 @@ function App() {
   return (
     <>
       <Toaster richColors position="top-right" />
+      {user &&  <Header />}
       <Routes>
         <Route 
           path="/" 
@@ -54,6 +57,14 @@ function App() {
           element={
             <PrivateRoute>
               <AllMovies />
+            </PrivateRoute>
+          }
+        />
+          <Route
+          path="/genre/:type/:genreId"
+          element={
+            <PrivateRoute>
+              <GenreContent />
             </PrivateRoute>
           }
         />
