@@ -13,6 +13,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Header from "@/Screens/Header/Header";
 import GenreContent from "@/Screens/GenreContent/GenreContent";
 import AllTvShows from "@/Screens/TvShows/AllTvShows";
+import SearchList from "@/Screens/SearchList/SearchList";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-center" />
       {user && <Header />}
       <Routes>
         <Route
@@ -74,6 +75,14 @@ function App() {
           element={
             <PrivateRoute>
               <GenreContent />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/search/:searchTerm"
+          element={
+            <PrivateRoute>
+              <SearchList />
             </PrivateRoute>
           }
         />

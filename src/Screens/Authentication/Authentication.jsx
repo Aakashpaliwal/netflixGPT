@@ -26,6 +26,7 @@ import { Loader2Icon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser, registerUser } from "@/API/AuthApi";
 import useUserStore from "@/store/userStore";
+import axiosInstance from "@/API/interceptor";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -77,10 +78,12 @@ const Authentication = () => {
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       toast.success("User LoggedIn Successfully.");
       setUserName('Akash')
       navigate("/home");
+      const result = await axiosInstance.get('https://api.themoviedb.org/3/authentication')
+      console.log(result)
     },
     onError: (err) => {
       toast.error(err.code);

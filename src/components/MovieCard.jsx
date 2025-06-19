@@ -9,6 +9,7 @@ const MovieCard = ({ movie, className = "" }) => {
         <img
           src={`${imageURL}/${movie?.poster_path}`}
           alt={movie?.title || movie?.name}
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0   group-hover:bg-opacity-30 transition-all duration-300 flex items-end">

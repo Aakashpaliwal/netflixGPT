@@ -43,9 +43,9 @@ const Home = () => {
             description={data?.data?.results?.[5]?.overview}
           />
         )}
-        {/* <div className="lg:-mt-50 md:-mt-30 relative z-20 px-4 md:px-8"> */}
+        <div className="lg:-mt-50 md:-mt-30 relative z-20 px-4 md:px-8">
           <Trending data={data} loading={isPending} error={error} />
-        {/* </div> */}
+        </div>
         <TvShows
           data={trendingShow}
           loading={tvShowPending}
