@@ -1,12 +1,16 @@
 import { create } from "zustand";
-import {persist} from "zustand/middleware"
+import { persist } from "zustand/middleware";
 
 const useUserStore = create(
   persist(
     (set) => ({
       userName: null,
+      userImageUrl: null,
       setUserName: (name) => {
-        console.log(name), set({ userName: name });
+        set({ userName: name });
+      },
+      setUserImageUrl: (url) => {
+        set({ userImageUrl: url });
       },
     }),
     {

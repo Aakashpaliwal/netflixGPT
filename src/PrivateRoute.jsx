@@ -9,7 +9,6 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-        console.log("Auth state changed:", user)
       setUser(user);
       setLoading(false);
     });
@@ -17,7 +16,6 @@ const PrivateRoute = ({ children }) => {
     return () => unsubscribe();
   }, []);
   
-  console.log("PrivateRoute - user:", user, "loading:", loading)
 
   // Show loading while checking auth state
   if (loading) {

@@ -44,8 +44,8 @@ export const getTvGenres = async () => {
     return result
 }
 
-export const getContentByGenre = async (type, genreId) => {
-    const result = await axiosInstance.get(`/discover/${type}?with_genres=${genreId}`)
+export const getContentByGenre = async (type, genreId, pageParam) => {
+    const result = await axiosInstance.get(`/discover/${type}?with_genres=${genreId}&page=${pageParam}`)
     return result
 }
 

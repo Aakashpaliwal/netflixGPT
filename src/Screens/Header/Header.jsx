@@ -37,14 +37,12 @@ import useSearchTmdb from "@/hooks/useSearchTmdb";
 const Header = () => {
   const navigate = useNavigate();
   const userName = useUserStore((state) => state.userName);
+  const userImageUrl = useUserStore((state) => state.userImageUrl)
   const setUserName = useUserStore((state) => state.setUserName);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const { searchedData, searchPending, searchError } = useSearchTmdb(
-  //   searchQuery,
-  //   1000
-  // );
+  console.log(userImageUrl)
 
   const searchHandler = (value) => {
     setSearchQuery(value)
@@ -54,7 +52,6 @@ const Header = () => {
   const logoutHandler = async () => {
     try {
       const result = await signOut(auth);
-      console.log(result);
       if (result) {
         setUserName(null);
       }
@@ -133,7 +130,7 @@ const Header = () => {
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <Avatar>
-                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarImage src={userImageUrl ||  "https://github.com/shadcn.png"} />
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                       </DropdownMenuTrigger>

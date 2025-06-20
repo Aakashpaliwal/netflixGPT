@@ -14,8 +14,11 @@ import Button from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,7 +44,9 @@ const signupSchema = z.object({
 
 const Authentication = () => {
   const navigate = useNavigate();
-  const setUserName = useUserStore((state) => state.setUserName)
+  const provider = new GoogleAuthProvider();
+  const setUserName = useUserStore((state) => state.setUserName);
+  const setUserImageUrl = useUserStore((state) => state.setUserImageUrl)
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -66,12 +71,10 @@ const Authentication = () => {
   const regsiterMutation = useMutation({
     mutationFn: registerUser,
     onSuccess: (res) => {
-      console.log(res);
       toast.success("User Registered Successfully.");
       setIsSignup(false);
     },
     onError: (err) => {
-      console.log(err);
       toast.error(err.code);
     },
   });
@@ -80,10 +83,11 @@ const Authentication = () => {
     mutationFn: loginUser,
     onSuccess: async (res) => {
       toast.success("User LoggedIn Successfully.");
-      setUserName('Akash')
+      setUserName("Akash");
       navigate("/home");
-      const result = await axiosInstance.get('https://api.themoviedb.org/3/authentication')
-      console.log(result)
+      const result = await axiosInstance.get(
+        "https://api.themoviedb.org/3/authentication"
+      );
     },
     onError: (err) => {
       toast.error(err.code);
@@ -91,8 +95,6 @@ const Authentication = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("Form Data:", data);
-    // Add login/signup logic here
     if (isSignUp) {
       regsiterMutation.mutate(data);
     } else {
@@ -100,7 +102,18 @@ const Authentication = () => {
     }
   };
 
-  console.log(isSignUp);
+  const loginWithGoogleHandler = async () => {
+    try {
+        const userGoogleCred = await signInWithPopup(auth, provider);
+        if(userGoogleCred) {
+          setUserImageUrl(userGoogleCred?.user?.photoURL)
+          toast.success("User LoggedIn Successfully.");
+        }
+    } catch (error) {
+      toast.error(error)
+    }
+  
+  };
 
   return (
     <div className="flex justify-center items-center h-screen m-auto w-full">
@@ -189,11 +202,17 @@ const Authentication = () => {
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex-col gap-2">
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
-        </CardFooter>
+        {!isSignUp && (
+          <CardFooter className="flex-col gap-2">
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => loginWithGoogleHandler()}
+            >
+              Login with Google
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </div>
   );

@@ -6,15 +6,12 @@ import { useParams } from "react-router-dom";
 
 const SearchList = () => {
   const { searchTerm } = useParams();
-  console.log(searchTerm);
 
   const { searchedData, searchPending, searchError } = useSearchTmdb(
     searchTerm,
     1000
   );
 
-  console.log(searchedData);
-  console.log(searchError);
 
   return (
     <div className="min-h-screen m-3">

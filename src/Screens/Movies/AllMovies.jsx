@@ -86,7 +86,6 @@ const AllMovies = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(genreData);
 
   return (
     <>
@@ -97,7 +96,6 @@ const AllMovies = () => {
               <Select
                 onValueChange={(genreId) => {
                   const selectedGenreName = genreData?.data?.genres.find((genre) => genre.id == genreId)
-                  console.log(selectedGenreName)
                   navigate(`/genre/movie/${genreId}`, {
                     state: {
                       genreName: selectedGenreName

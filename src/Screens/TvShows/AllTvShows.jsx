@@ -96,7 +96,6 @@ const AllTvShows = () => {
                 const selectedGenreName = genreData?.data?.genres.find(
                   (genre) => genre.id == genreId
                 );
-                console.log(selectedGenreName);
                 navigate(`/genre/tv/${genreId}`, {
                   state: {
                     genreName: selectedGenreName,
