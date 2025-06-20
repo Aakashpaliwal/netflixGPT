@@ -35,7 +35,7 @@ const MovieDialog = ({
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[425px] overflow-hidden border-0 p-0 pb-6 [&>button[aria-label=Close]]:hidden">
+        <DialogContent className="sm:max-w-[425px] overflow-hidden border-0 p-0 pb-6 ">
           {isPending ? (
             <Skeleton className="h-[200px] w-[425px] rounded-xl" />
           ) : (
@@ -50,7 +50,7 @@ const MovieDialog = ({
           )}
 
           <div className="px-6">
-            <DialogHeader className={"[&>button[aria-label=Close]]:hidden"}>
+            <DialogHeader className={""}>
               <DialogTitle className={"flex justify-between"}>
                 {isPending ? (
                   <>
