@@ -8,6 +8,7 @@ const Trending = ({ data, loading, error }) => {
       data={data}
       loading={loading}
       error={error}
+      type='movie'
     />
   );
 };

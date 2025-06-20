@@ -8,6 +8,7 @@ const TvShows = ({ data, loading, error }) => {
       data={data}
       loading={loading}
       error={error}
+      type='tv'
     />
   );
 };

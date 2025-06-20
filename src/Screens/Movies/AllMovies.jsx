@@ -126,6 +126,7 @@ const AllMovies = () => {
             data={trendingMovies}
             loading={trendingLoading}
             error={trendingError}
+            type='movie'
           />
 
           <MovieCarousel
@@ -133,6 +134,7 @@ const AllMovies = () => {
             data={popularMovies}
             loading={popularLoading}
             error={popularError}
+            type='movie'
           />
 
           <MovieCarousel
@@ -140,6 +142,7 @@ const AllMovies = () => {
             data={topRatedMovies}
             loading={topRatedLoading}
             error={topRatedError}
+            type='movie'
           />
 
           <MovieCarousel
@@ -147,6 +150,7 @@ const AllMovies = () => {
             data={nowPlayingMovies}
             loading={nowPlayingLoading}
             error={nowPlayingError}
+            type='movie'
           />
 
           <MovieCarousel
@@ -154,6 +158,7 @@ const AllMovies = () => {
             data={upcomingMovies}
             loading={upcomingLoading}
             error={upcomingError}
+            type='movie'
           />
         </div>
       </div>

@@ -42,7 +42,6 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log(userImageUrl)
 
   const searchHandler = (value) => {
     setSearchQuery(value)

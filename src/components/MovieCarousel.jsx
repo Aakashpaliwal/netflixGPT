@@ -15,7 +15,8 @@ const MovieCarousel = ({
   loading, 
   error, 
   className = "",
-  showArrows = true 
+  showArrows = true,
+  type = ""
 }) => {
   if (loading) {
     return (
@@ -77,7 +78,7 @@ const MovieCarousel = ({
               className="basis-[50%] sm:basis-[40%] md:basis-1/8 lg:basis-1/8"
             >
               <div className="p-1">
-                <MovieCard movie={item} />
+                <MovieCard key={item.id} movie={item} id={item.id} type={type}/>
               </div>
             </CarouselItem>
           ))}

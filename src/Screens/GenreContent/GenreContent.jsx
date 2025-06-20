@@ -97,7 +97,7 @@ const GenreContent = () => {
         )}
         {data?.pages?.flatMap((item) => {
           return item.data.results.map((genreData) => {
-            return <MovieCard key={genreData.id} movie={genreData} />;
+            return <MovieCard key={genreData.id} movie={genreData} id={genreData.id} type={type} />;
           });
         })}
       </div>

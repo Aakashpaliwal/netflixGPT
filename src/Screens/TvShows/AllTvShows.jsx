@@ -126,6 +126,7 @@ const AllTvShows = () => {
           data={trendingTvShows}
           loading={trendingLoading}
           error={trendingError}
+          type='tv'
         />
 
         <MovieCarousel
@@ -133,6 +134,7 @@ const AllTvShows = () => {
           data={airingTodayTv}
           loading={airingTodayLoading}
           error={airingTodayError}
+          type='tv'
         />
 
         <MovieCarousel
@@ -140,6 +142,7 @@ const AllTvShows = () => {
           data={popularTv}
           loading={popularLoading}
           error={popularError}
+          type='tv'
         />
 
         <MovieCarousel
@@ -147,6 +150,7 @@ const AllTvShows = () => {
           data={onTheAirTv}
           loading={onTheAirLoading}
           error={onTheAirError}
+          type='tv'
         />
 
         <MovieCarousel
@@ -154,6 +158,7 @@ const AllTvShows = () => {
           data={topRatedTv}
           loading={topRatedLoading}
           error={topRatedError}
+          type='tv'
         />
       </div>
     </div>

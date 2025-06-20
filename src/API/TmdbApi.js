@@ -83,3 +83,8 @@ export const getSearchedContent = async (searchTerm) => {
     const result = await axiosInstance.get(`/search/multi?query=${searchTerm}&language=en-US&page=1`)
     return result
 }
+
+export const getContentDetails = async(type, id) => {
+    const result = await axiosInstance.get(`/${type}/${id}?language=en-US`)
+    return result
+}
