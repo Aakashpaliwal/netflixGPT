@@ -46,7 +46,7 @@ const Authentication = () => {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const setUserName = useUserStore((state) => state.setUserName);
-  const setUserImageUrl = useUserStore((state) => state.setUserImageUrl)
+  const setUserImageUrl = useUserStore((state) => state.setUserImageUrl);
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -104,15 +104,14 @@ const Authentication = () => {
 
   const loginWithGoogleHandler = async () => {
     try {
-        const userGoogleCred = await signInWithPopup(auth, provider);
-        if(userGoogleCred) {
-          setUserImageUrl(userGoogleCred?.user?.photoURL)
-          toast.success("User LoggedIn Successfully.");
-        }
+      const userGoogleCred = await signInWithPopup(auth, provider);
+      if (userGoogleCred) {
+        setUserImageUrl(userGoogleCred?.user?.photoURL);
+        toast.success("User LoggedIn Successfully.");
+      }
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
-  
   };
 
   return (
@@ -198,7 +197,15 @@ const Authentication = () => {
               {(regsiterMutation?.isPending || loginMutation?.isPending) && (
                 <Loader2Icon className="animate-spin" />
               )}
-              {isSignUp ? "Sign Up" : "Login"}
+              <span
+                className={`${
+                  regsiterMutation?.isPending || loginMutation?.isPending
+                    ? "hidden"
+                    : "block"
+                }`}
+              >
+                {isSignUp ? "Sign Up" : "Login"}
+              </span>
             </Button>
           </form>
         </CardContent>

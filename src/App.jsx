@@ -14,6 +14,7 @@ import Header from "@/Screens/Header/Header";
 import GenreContent from "@/Screens/GenreContent/GenreContent";
 import AllTvShows from "@/Screens/TvShows/AllTvShows";
 import SearchList from "@/Screens/SearchList/SearchList";
+import Recommendation from "@/Screens/Recommendation/Recommendation";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -83,6 +84,14 @@ function App() {
           element={
             <PrivateRoute>
               <SearchList />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/recommendation"
+          element={
+            <PrivateRoute>
+              <Recommendation />
             </PrivateRoute>
           }
         />

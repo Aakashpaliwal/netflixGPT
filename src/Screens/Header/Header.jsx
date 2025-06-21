@@ -89,6 +89,11 @@ const Header = () => {
                   <Link to="/tvshows">Tv Shows</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
+               <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/recommendation">Recommendation</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>

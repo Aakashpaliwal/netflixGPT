@@ -20,14 +20,13 @@ import { SquareX, X } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import MovieDialog from "@/components/MovieDialog";
 
-const MovieCard = ({ key = "", movie, id = "", type = "" }) => {
+const MovieCard = ({  movie, id = "", type = "" }) => {
   const [open, setOpen] = useState(false);
   const [selectMovieId, setSelectMovieId] = useState(null);
   const [contentType, setContentType] = useState(null);
-
   return (
     <>
-      <div>
+      <div key={movie?.id}>
         <Card
           className={`py-0 border-0`}
           onClick={() => {
@@ -38,7 +37,7 @@ const MovieCard = ({ key = "", movie, id = "", type = "" }) => {
         >
           <div className="aspect-[2/3] w-full overflow-hidden relative rounded-lg group cursor-pointer transition-transform duration-300 hover:scale-105">
             <img
-              src={`${imageURL}/${movie?.poster_path}`}
+              src={`${imageURL}/${movie?.poster_path || movie?.backdrop_path}`}
               alt={movie?.title || movie?.name}
               // loading="lazy"
               className="w-full h-full object-cover"
