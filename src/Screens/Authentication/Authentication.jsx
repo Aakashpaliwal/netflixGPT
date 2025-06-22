@@ -44,9 +44,10 @@ const signupSchema = z.object({
 
 const Authentication = () => {
   const navigate = useNavigate();
-  const provider = new GoogleAuthProvider();
   const setUserName = useUserStore((state) => state.setUserName);
   const setUserImageUrl = useUserStore((state) => state.setUserImageUrl);
+  const setIsUserLoggedIn = useUserStore((state) => state.setIsUserLoggedIn);
+
   const [isSignUp, setIsSignup] = useState(false);
 
   const {
@@ -71,6 +72,7 @@ const Authentication = () => {
   const regsiterMutation = useMutation({
     mutationFn: registerUser,
     onSuccess: (res) => {
+      setIsUserLoggedIn(1)
       toast.success("User Registered Successfully.");
       setIsSignup(false);
     },
@@ -82,8 +84,10 @@ const Authentication = () => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: async (res) => {
+      setIsUserLoggedIn(1)
       toast.success("User LoggedIn Successfully.");
       setUserName("Akash");
+       setUserImageUrl(null);
       navigate("/home");
       const result = await axiosInstance.get(
         "https://api.themoviedb.org/3/authentication"
@@ -103,9 +107,11 @@ const Authentication = () => {
   };
 
   const loginWithGoogleHandler = async () => {
+     const provider = new GoogleAuthProvider();
     try {
       const userGoogleCred = await signInWithPopup(auth, provider);
       if (userGoogleCred) {
+        setIsUserLoggedIn(1)
         setUserImageUrl(userGoogleCred?.user?.photoURL);
         toast.success("User LoggedIn Successfully.");
       }
