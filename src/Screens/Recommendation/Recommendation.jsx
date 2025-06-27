@@ -56,7 +56,7 @@ const Recommendation = () => {
             a
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
+            placeholder="Retro, Comedy Movies..."
             className="bg-transparent text-white outline-none w-full"
           />
           <XIcon
