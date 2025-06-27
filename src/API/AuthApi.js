@@ -4,8 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-export const registerUser = async (data) => {P
-  
+export const registerUser = async (data) => {
   const result = await createUserWithEmailAndPassword(
     auth,
     data?.email,
