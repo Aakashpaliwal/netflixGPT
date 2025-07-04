@@ -128,9 +128,9 @@ const Authentication = () => {
         <Alert className="bg-blue-50 border-blue-400 text-blue-800">
           <Info className="h-4 w-4" />
           <AlertTitle>Demo Credentials</AlertTitle>
-          <AlertDescription className={"flex"}>
-            <span className="font-semibold">Email:</span> johndoe@yopmail.com
-            <span className="font-semibold">Password:</span> Test@123
+          <AlertDescription className={"flex flex-col"}>
+            <p><span className="font-semibold">Email:</span> johndoe@yopmail.com</p>
+            <p><span className="font-semibold">Password:</span> Test@123</p>
           </AlertDescription>
         </Alert>
       </div>

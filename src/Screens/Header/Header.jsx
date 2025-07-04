@@ -33,6 +33,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
 import useDebounce from "@/hooks/useDebounced";
 import useSearchTmdb from "@/hooks/useSearchTmdb";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -70,7 +71,9 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-black text-white shadow-md">
       <div className="mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <h1 className="text-xl font-bold mr-3 align-baseline hidden md:block">Netflix GPT</h1>
+          <h1 className="text-xl font-bold mr-3 align-baseline hidden md:block">
+            Netflix GPT
+          </h1>
           <button
             className="md:hidden ml-2 p-2 rounded hover:bg-zinc-800 focus:outline-none"
             onClick={() => setMobileNavOpen((prev) => !prev)}
@@ -79,7 +82,20 @@ const Header = () => {
             {mobileNavOpen ? (
               <XIcon size={24} />
             ) : (
-              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+              <svg
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-menu"
+              >
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+              </svg>
             )}
           </button>
           <nav className="hidden md:block ml-4">
@@ -109,6 +125,7 @@ const Header = () => {
             </NavigationMenu>
           </nav>
         </div>
+        <ThemeToggle />
         <div className="flex items-center gap-4">
           {showSearch ? (
             <form
@@ -138,6 +155,7 @@ const Header = () => {
               onClick={() => setShowSearch(true)}
             />
           )}
+
           <NavigationMenu viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -179,25 +197,41 @@ const Header = () => {
       </div>
       {mobileNavOpen && (
         <nav className="md:hidden bg-black border-t border-zinc-800 px-4 pb-4">
-           <h1 className="text-xl font-bold mr-3 align-baseline">Netflix GPT</h1>
+          <h1 className="text-xl font-bold mr-3 align-baseline">Netflix GPT</h1>
           <ul className="flex flex-col gap-2 mt-2">
             <li>
-              <Link to="/home" className="block py-2 px-2 rounded hover:bg-zinc-800" onClick={() => setMobileNavOpen(false)}>
+              <Link
+                to="/home"
+                className="block py-2 px-2 rounded hover:bg-zinc-800"
+                onClick={() => setMobileNavOpen(false)}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/movies" className="block py-2 px-2 rounded hover:bg-zinc-800" onClick={() => setMobileNavOpen(false)}>
+              <Link
+                to="/movies"
+                className="block py-2 px-2 rounded hover:bg-zinc-800"
+                onClick={() => setMobileNavOpen(false)}
+              >
                 Movies
               </Link>
             </li>
             <li>
-              <Link to="/tvshows" className="block py-2 px-2 rounded hover:bg-zinc-800" onClick={() => setMobileNavOpen(false)}>
+              <Link
+                to="/tvshows"
+                className="block py-2 px-2 rounded hover:bg-zinc-800"
+                onClick={() => setMobileNavOpen(false)}
+              >
                 Tv Shows
               </Link>
             </li>
             <li>
-              <Link to="/recommendation" className="block py-2 px-2 rounded hover:bg-zinc-800" onClick={() => setMobileNavOpen(false)}>
+              <Link
+                to="/recommendation"
+                className="block py-2 px-2 rounded hover:bg-zinc-800"
+                onClick={() => setMobileNavOpen(false)}
+              >
                 Recommendation
               </Link>
             </li>

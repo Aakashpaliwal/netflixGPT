@@ -15,6 +15,7 @@ import GenreContent from "@/Screens/GenreContent/GenreContent";
 import AllTvShows from "@/Screens/TvShows/AllTvShows";
 import SearchList from "@/Screens/SearchList/SearchList";
 import Recommendation from "@/Screens/Recommendation/Recommendation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function App() {
   const [count, setCount] = useState(0);
