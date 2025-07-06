@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Authentication from "@/Screens/Authentication/Authentication";
 import { Toaster } from "sonner";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Home from "@/Screens/Home/Home";
-import AllMovies from "@/Screens/Movies/AllMovies";
 import PrivateRoute from "@/PrivateRoute";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Header from "@/Screens/Header/Header";
-import GenreContent from "@/Screens/GenreContent/GenreContent";
-import AllTvShows from "@/Screens/TvShows/AllTvShows";
-import SearchList from "@/Screens/SearchList/SearchList";
-import Recommendation from "@/Screens/Recommendation/Recommendation";
 import ThemeToggle from "@/components/ThemeToggle";
+import Loading from "@/Loading";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,12 +27,16 @@ function App() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-      </div>
-    );
+    return <Loading />;
   }
+
+  // Lazy load all route components
+  const Home = React.lazy(() => import("@/Screens/Home/Home"));
+  const AllMovies = React.lazy(() => import("@/Screens/Movies/AllMovies"));
+  const GenreComponent = React.lazy(() => import("@/Screens/GenreContent/GenreContent"));
+  const AllTvShows = React.lazy(() => import("@/Screens/TvShows/AllTvShows"));
+  const SearchList = React.lazy(() => import("@/Screens/SearchList/SearchList"));
+  const Recommendation = React.lazy(() => import("@/Screens/Recommendation/Recommendation"));
 
   return (
     <>
@@ -52,7 +51,9 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <Home />
+              <Suspense fallback={<Loading />}>
+                <Home />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -60,7 +61,9 @@ function App() {
           path="/movies"
           element={
             <PrivateRoute>
-              <AllMovies />
+              <Suspense fallback={<Loading />}>
+                <AllMovies />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -68,7 +71,9 @@ function App() {
           path="/tvshows"
           element={
             <PrivateRoute>
-              <AllTvShows />
+              <Suspense fallback={<Loading />}>
+                <AllTvShows />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -76,7 +81,9 @@ function App() {
           path="/genre/:type/:genreId"
           element={
             <PrivateRoute>
-              <GenreContent />
+              <Suspense fallback={<Loading />}>
+                <GenreComponent />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -84,15 +91,19 @@ function App() {
           path="/search/:searchTerm"
           element={
             <PrivateRoute>
-              <SearchList />
+              <Suspense fallback={<Loading />}>
+                <SearchList />
+              </Suspense>
             </PrivateRoute>
           }
         />
-         <Route
+        <Route
           path="/recommendation"
           element={
             <PrivateRoute>
-              <Recommendation />
+              <Suspense fallback={<Loading />}>
+                <Recommendation />
+              </Suspense>
             </PrivateRoute>
           }
         />
