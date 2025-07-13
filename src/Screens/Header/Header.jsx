@@ -226,7 +226,7 @@ const Header = () => {
                 Tv Shows
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/recommendation"
                 className="block py-2 px-2 rounded hover:bg-zinc-800"
@@ -234,7 +234,7 @@ const Header = () => {
               >
                 Recommendation
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       )}
