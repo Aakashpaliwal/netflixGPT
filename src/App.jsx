@@ -97,7 +97,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/recommendation"
           element={
             <PrivateRoute>
@@ -106,7 +106,7 @@ function App() {
               </Suspense>
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
       {/* <Authentication /> */}
     </>
